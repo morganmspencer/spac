@@ -6,9 +6,13 @@ import {
   TextField,
   Submit,
 } from '@redwoodjs/forms'
+import { useParams } from '@redwoodjs/router'
+import { formatDateOnSubmit } from 'src/utils/forms'
 
 const SpacForm = (props) => {
+  const { symbol } = useParams()
   const onSubmit = (data) => {
+    data.mergerDate = formatDateOnSubmit(data.mergerDate)
     props.onSave(data, props?.spac?.id)
   }
 
@@ -31,7 +35,7 @@ const SpacForm = (props) => {
         </Label>
         <TextField
           name="symbol"
-          defaultValue={props.spac?.symbol}
+          defaultValue={props.spac?.symbol || symbol}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
@@ -53,22 +57,6 @@ const SpacForm = (props) => {
           validation={{ required: true }}
         />
         <FieldError name="ipoSymbol" className="rw-field-error" />
-
-        <Label
-          name="ipoDate"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Ipo date
-        </Label>
-        <TextField
-          name="ipoDate"
-          defaultValue={props.spac?.ipoDate}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-        <FieldError name="ipoDate" className="rw-field-error" />
 
         <Label
           name="ipoPrice"
@@ -98,7 +86,7 @@ const SpacForm = (props) => {
           defaultValue={props.spac?.mergerDate}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
+          validation={{ required: false }}
         />
         <FieldError name="mergerDate" className="rw-field-error" />
 

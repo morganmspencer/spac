@@ -8,7 +8,6 @@ export const QUERY = gql`
       id
       symbol
       ipoSymbol
-      ipoDate
       ipoPrice
       mergerDate
       createdAt
@@ -23,5 +22,6 @@ export const Empty = () => {
 }
 
 export const Success = ({ favorites }) => {
+  console.log(favorites)
   return <Spacs spacs={favorites} />
 }

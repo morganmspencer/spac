@@ -32,6 +32,8 @@ export const favorites = async ({ id }) => {
     },
   })
 
+  console.log(user.favorites)
+
   if (!user || !user.favorites) {
     return null
   } else {

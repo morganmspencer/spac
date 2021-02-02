@@ -8,7 +8,6 @@ export const QUERY = gql`
       id
       symbol
       ipoSymbol
-      ipoDate
       ipoPrice
       mergerDate
       createdAt
@@ -21,7 +20,6 @@ const UPDATE_SPAC_MUTATION = gql`
       id
       symbol
       ipoSymbol
-      ipoDate
       ipoPrice
       mergerDate
       createdAt

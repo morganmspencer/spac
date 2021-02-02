@@ -25,7 +25,11 @@ const REMOVE_USER_FAVORITE = gql`
 `
 
 export const FavoriteCell = ({ spacId }) => {
-  const { currentUser } = useAuth()
+  const { currentUser, reauthenticate, isAuthenticated } = useAuth()
+
+  if (!isAuthenticated) {
+    return null
+  }
 
   const userFavorites = currentUser.user.favorites
 
@@ -38,6 +42,7 @@ export const FavoriteCell = ({ spacId }) => {
     {
       onCompleted: () => {
         setFavorite(true)
+        reauthenticate()
       },
     }
   )
@@ -46,6 +51,7 @@ export const FavoriteCell = ({ spacId }) => {
     {
       onCompleted: () => {
         setFavorite(false)
+        reauthenticate()
       },
     }
   )
@@ -60,17 +66,21 @@ export const FavoriteCell = ({ spacId }) => {
 
   return (
     <>
-      {!favorite ? (
-        <button onClick={onAddFavorite} title="Add favorite">
-          <RiStarLine />
-        </button>
-      ) : (
-        <button onClick={onRemoveFavorite} title="Remove favorite">
-          <RiStarFill />
-        </button>
+      {(isAuthenticated && spacId) && (
+        <>
+          {!favorite ? (
+            <button onClick={onAddFavorite} title="Add favorite">
+              <RiStarLine />
+            </button>
+          ) : (
+            <button onClick={onRemoveFavorite} title="Remove favorite">
+              <RiStarFill />
+            </button>
+          )}
+          {addError && console.log(addError)}
+          {removeError && console.log(removeError)}
+        </>
       )}
-      {addError && console.log(addError)}
-      {removeError && console.log(removeError)}
     </>
   )
 }

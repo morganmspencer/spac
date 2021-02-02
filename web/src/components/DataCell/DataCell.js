@@ -4,13 +4,15 @@ import NewsCell from 'src/components/NewsCell'
 
 export const QUERY = gql`
   query FIND_SPAC_BY_SYMBOL($symbol: String!) {
-    spac: spac(symbol: $symbol) {
-      id
+    spac: stockData(symbol: $symbol) {
       symbol
-      ipoSymbol
-      ipoDate
-      ipoPrice
-      mergerDate
+      spac {
+        id
+        ipoPrice
+        mergerDate
+      }
+      stock
+      originalStock
     }
   }
 `
@@ -24,14 +26,13 @@ export const Success = ({ spac }) => {
 
   return (
     <>
-      {symbol !== spac.symbol ? (
-        navigate(routes.data({ symbol: spac.symbol }))
+      {console.log(spac)}
+      {symbol !== spac.stock.symbol ? (
+        navigate(routes.data({ symbol: spac.stock.symbol }))
       ) : (
         <>
           <Data spac={spac} />
-          <div className="max-w-3xl mx-auto">
-            {/* <NewsCell symbol={spac.symbol} /> */}
-          </div>
+          <NewsCell symbol={spac.symbol} />
         </>
       )}
     </>

@@ -1,10 +1,10 @@
 import DataCell from 'src/components/DataCell'
 import MainLayout from 'src/layouts/MainLayout'
+import NewsCell from 'src/components/NewsCell'
 
 const DataPage = ({ symbol }) => {
   return (
     <MainLayout>
-      <h1>DataPage</h1>
       <DataCell symbol={symbol} />
     </MainLayout>
   )

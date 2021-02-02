@@ -31,3 +31,11 @@ export const timeTag = (datetime) => {
 export const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
+
+export const formatDateOnSubmit = (input) => {
+  if (!input) {
+    return null
+  } else {
+    return input
+  }
+}

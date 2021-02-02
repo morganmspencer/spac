@@ -8,7 +8,7 @@ export const schema = gql`
   type Query {
     users: [User!]!
     user(id: String!): User
-    favorites(id: String!): Spac!
+    favorites(id: String!): [Spac]!
   }
 
   input CreateUserInput {

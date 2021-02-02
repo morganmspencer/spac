@@ -1,19 +1,19 @@
 import MainLayout from 'src/layouts/MainLayout'
+import DataSection from 'src/components/DataSection'
 import SpacListingCell from 'src/components/SpacListingCell'
 import AllNewsCell from 'src/components/AllNewsCell'
 
 const HomePage = () => {
   return (
     <MainLayout>
-      <div className="flex gap-6">
-        <div className="flex-1">
-          <h1 className="mb-6">Latest News</h1>
-          {/* <AllNewsCell /> */}
+      <DataSection>
+        <div>
+          <SpacListingCell/>
         </div>
-        <aside className="max-w-xs sticky" style={{ width: '275px' }}>
-          <SpacListingCell />
-        </aside>
-      </div>
+      </DataSection>
+      <section className="max-w-2xl mx-auto">
+        <AllNewsCell />
+      </section>
     </MainLayout>
   )
 }

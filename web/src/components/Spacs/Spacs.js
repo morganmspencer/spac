@@ -77,7 +77,6 @@ const SpacsList = ({ spacs }) => {
               <td>{truncate(spac.id)}</td>
               <td>{truncate(spac.symbol)}</td>
               <td>{truncate(spac.ipoSymbol)}</td>
-              <td>{timeTag(spac.ipoDate)}</td>
               <td>{truncate(spac.ipoPrice)}</td>
               <td>{timeTag(spac.mergerDate)}</td>
               <td>{timeTag(spac.createdAt)}</td>

@@ -69,10 +69,6 @@ const Spac = ({ spac }) => {
               <td>{spac.ipoSymbol}</td>
             </tr>
             <tr>
-              <th>Ipo date</th>
-              <td>{timeTag(spac.ipoDate)}</td>
-            </tr>
-            <tr>
               <th>Ipo price</th>
               <td>{spac.ipoPrice}</td>
             </tr>

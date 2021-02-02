@@ -50,24 +50,19 @@ h6,
 
 @import "tailwindcss/components";
 
-.aside-listing-table {
-  @apply w-full rounded-md overflow-hidden text-sm border border-solid border-gray-200;
+.listing-table tr {
+  @apply border-solid border-b border-gray-300;
 }
 
-.aside-listing-table thead {
-  @apply bg-gray-200;
+.listing-table tr:last-of-type {
+  @apply border-none;
 }
 
-.aside-listing-table tr {
-  @apply border-t border-solid border-gray-200 transition duration-300;
+.listing-table tr:hover {
+  @apply bg-blue-100;
 }
 
-.aside-listing-table tbody tr:hover {
-  @apply bg-gray-100;
-}
-
-.aside-listing-table th,
-.aside-listing-table td {
+.listing-table td {
   @apply p-2;
 }
 

@@ -1,5 +1,3 @@
-import { Link, routes } from '@redwoodjs/router'
-
 import Spacs from 'src/components/Spacs'
 
 export const QUERY = gql`
@@ -8,7 +6,6 @@ export const QUERY = gql`
       id
       symbol
       ipoSymbol
-      ipoDate
       ipoPrice
       mergerDate
       createdAt
@@ -21,10 +18,7 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => {
   return (
     <div className="rw-text-center">
-      {'No spacs yet. '}
-      <Link to={routes.newSpac()} className="rw-link">
-        {'Create one?'}
-      </Link>
+      {'No spacs yet.'}
     </div>
   )
 }
