@@ -4,9 +4,12 @@ import { useAuth } from '@redwoodjs/auth'
 
 Modal.setAppElement('#redwood-app')
 
-const LoginButton = () => {
+const LoginButton = (props) => {
+  const initialForm = props.signup
+
   const { logIn, logOut, signUp, isAuthenticated } = useAuth()
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [signupForm, setSignupForm] = useState(props.signup)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -15,6 +18,7 @@ const LoginButton = () => {
   }
 
   function closeModal() {
+    setSignupForm(initialForm)
     setIsOpen(false)
   }
 
@@ -24,11 +28,13 @@ const LoginButton = () => {
   }
   return (
     <>
-      <button onClick={openModal}>Login / Signup</button>
+      <button onClick={openModal}>
+        {!initialForm ? 'Log in' : 'Sign up'}
+      </button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        contentLabel="Login / Signup"
+        contentLabel={!signupForm ? 'Log in' : 'Sign up'}
         className="p-6"
         overlayClassName="w-full h-full bg-white bg-opacity-90 flex items-center justify-center absolute top-0 left-0"
       >
@@ -50,26 +56,26 @@ const LoginButton = () => {
           />
         </form>
         <br />
-        <button
-          disabled={(!email.length || !password.length) && !isAuthenticated}
-          onClick={async () => {
-            if (!isAuthenticated && email.length) {
-              try {
-                await logIn({ email, password })
-                closeModal()
-              } catch (e) {
-                console.log(e)
-                const supabaseError = JSON.parse(e.message)
-                alert(supabaseError.error_description)
+
+        {!signupForm ? (
+          <button
+            disabled={(!email.length || !password.length) && !isAuthenticated}
+            onClick={async () => {
+              if (!isAuthenticated && email.length) {
+                try {
+                  await logIn({ email, password })
+                  closeModal()
+                } catch (e) {
+                  console.log(e)
+                  const supabaseError = JSON.parse(e.message)
+                  alert(supabaseError.error_description)
+                }
               }
-            } else {
-              await logOut()
-            }
-          }}
-        >
-          {isAuthenticated ? 'Log Out' : 'Log In'}
-        </button>
-        {!isAuthenticated && (
+            }}
+          >
+            Log in
+          </button>
+        ) : (
           <button
             disabled={(!email.length || !password.length) && !isAuthenticated}
             onClick={async () => {
@@ -86,10 +92,15 @@ const LoginButton = () => {
               }
             }}
           >
-            Sign Up
+            Sign up
           </button>
         )}
-        <br />
+        <hr />
+        <button
+          onClick={() => setSignupForm(current => !current)}
+        >
+          {!signupForm ? 'Sign up' : 'Log in'}
+        </button>
       </Modal>
     </>
 

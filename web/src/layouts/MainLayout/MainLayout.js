@@ -20,9 +20,14 @@ const MainLayout = ({ children }) => {
         <nav>
           <ul className="flex gap-4 items-center text-sm">
             {!isAuthenticated ? (
-              <li>
-                <LoginButton />
-              </li>
+              <>
+                <li>
+                  <LoginButton />
+                </li>
+                <li>
+                  <LoginButton signup={true} />
+                </li>
+              </>
             ) : (
               <>
                 <li>
