@@ -30,10 +30,10 @@ describe('spacs', () => {
     const original = await spac({ id: scenario.spac.one.id })
     const result = await updateSpac({
       id: original.id,
-      input: { name: 'String321078' },
+      input: { name: 'String9766615' },
     })
 
-    expect(result.name).toEqual('String321078')
+    expect(result.name).toEqual('String9766615')
   })
 
   scenario('deletes a spac', async (scenario) => {

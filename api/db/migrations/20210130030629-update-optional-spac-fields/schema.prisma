@@ -1,6 +1,6 @@
 datasource DS {
   provider = ["sqlite", "postgresql"]
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -11,16 +11,8 @@ generator client {
 model Spac {
   id          String    @id @default(cuid())
   symbol      String    @unique
-  ipoSymbol   String    @unique
+  ipoSymbol   String
   ipoDate     DateTime?
   ipoPrice    String?
   mergerDate  DateTime?
-  users       User[]
-  createdAt   DateTime  @default(now())
-}
-
-model User {
-  id        String  @id @default(cuid())
-  email     String  @unique
-  favorites Spac[]
 }

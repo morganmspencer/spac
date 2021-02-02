@@ -1,15 +1,6 @@
 export const standard = defineScenario({
   spac: {
-    one: {
-      symbol: 'String561652',
-      ipoSymbol: 'String',
-      ipoDate: '2021-01-30T01:01:03Z',
-    },
-
-    two: {
-      symbol: 'String2955806',
-      ipoSymbol: 'String',
-      ipoDate: '2021-01-30T01:01:03Z',
-    },
+    one: { symbol: 'String8758001', ipoSymbol: 'String9143037' },
+    two: { symbol: 'String6465307', ipoSymbol: 'String7794978' },
   },
 })

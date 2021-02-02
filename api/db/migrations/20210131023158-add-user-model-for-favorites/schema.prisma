@@ -1,6 +1,6 @@
 datasource DS {
   provider = ["sqlite", "postgresql"]
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -21,6 +21,5 @@ model Spac {
 
 model User {
   id        String  @id @default(cuid())
-  email     String  @unique
   favorites Spac[]
 }
