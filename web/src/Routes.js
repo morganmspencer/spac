@@ -1,21 +1,22 @@
-// In this file, all Page components from 'src/pages` are auto-imported. Nested
-// directories are supported, and should be uppercase. Each subdirectory will be
-// prepended onto the component name.
-//
-// Examples:
-//
-// 'src/pages/HomePage/HomePage.js'         -> HomePage
-// 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
-
-import { Router, Route } from '@redwoodjs/router'
+import { Router, Route, Private } from '@redwoodjs/router'
 
 const Routes = () => {
   return (
     <Router>
-      <Route path="/spacs/new" page={NewSpacPage} name="newSpac" />
-      <Route path="/spacs/{id}/edit" page={EditSpacPage} name="editSpac" />
-      <Route path="/spacs/{id}" page={SpacPage} name="spac" />
-      <Route path="/spacs" page={SpacsPage} name="spacs" />
+      <Private unauthenticated="home">
+        <Route path="/favorites" page={FavoritesPage} name="favorites" />
+        <Route path="/users/new" page={NewUserPage} name="newUser" />
+        <Route path="/users/{id}/edit" page={EditUserPage} name="editUser" />
+        <Route path="/users/{id}" page={UserPage} name="user" />
+        <Route path="/users" page={UsersPage} name="users" />
+        <Route path="/admin/new" page={NewSpacPage} name="newSpac" />
+        <Route path="/admin/{id}/edit" page={EditSpacPage} name="editSpac" />
+        <Route path="/admin/{id}" page={SpacPage} name="spac" />
+        <Route path="/admin" page={SpacsPage} name="spacs" />
+      </Private>
+      <Route path="/listing" page={ListingPage} name="listing" />
+      <Route path="/{symbol}" page={DataPage} name="data" />
+      <Route path="/" page={HomePage} name="home" />
       <Route notfound page={NotFoundPage} />
     </Router>
   )

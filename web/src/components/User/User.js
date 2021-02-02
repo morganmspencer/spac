@@ -1,11 +1,11 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
 
-import { QUERY } from 'src/components/SpacsCell'
+import { QUERY } from 'src/components/UsersCell'
 
-const DELETE_SPAC_MUTATION = gql`
-  mutation DeleteSpacMutation($id: String!) {
-    deleteSpac(id: $id) {
+const DELETE_USER_MUTATION = gql`
+  mutation DeleteUserMutation($id: String!) {
+    deleteUser(id: $id) {
       id
     }
   }
@@ -31,18 +31,18 @@ const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
-const Spac = ({ spac }) => {
+const User = ({ user }) => {
   const { addMessage } = useFlash()
-  const [deleteSpac] = useMutation(DELETE_SPAC_MUTATION, {
+  const [deleteUser] = useMutation(DELETE_USER_MUTATION, {
     onCompleted: () => {
-      navigate(routes.spacs())
-      addMessage('Spac deleted.', { classes: 'rw-flash-success' })
+      navigate(routes.users())
+      addMessage('User deleted.', { classes: 'rw-flash-success' })
     },
   })
 
   const onDeleteClick = (id) => {
-    if (confirm('Are you sure you want to delete spac ' + id + '?')) {
-      deleteSpac({ variables: { id } })
+    if (confirm('Are you sure you want to delete user ' + id + '?')) {
+      deleteUser({ variables: { id } })
     }
   }
 
@@ -51,45 +51,25 @@ const Spac = ({ spac }) => {
       <div className="rw-segment">
         <header className="rw-segment-header">
           <h2 className="rw-heading rw-heading-secondary">
-            Spac {spac.id} Detail
+            User {user.id} Detail
           </h2>
         </header>
         <table className="rw-table">
           <tbody>
             <tr>
               <th>Id</th>
-              <td>{spac.id}</td>
+              <td>{user.id}</td>
             </tr>
             <tr>
-              <th>Symbol</th>
-              <td>{spac.symbol}</td>
-            </tr>
-            <tr>
-              <th>Ipo symbol</th>
-              <td>{spac.ipoSymbol}</td>
-            </tr>
-            <tr>
-              <th>Ipo date</th>
-              <td>{timeTag(spac.ipoDate)}</td>
-            </tr>
-            <tr>
-              <th>Ipo price</th>
-              <td>{spac.ipoPrice}</td>
-            </tr>
-            <tr>
-              <th>Merger date</th>
-              <td>{timeTag(spac.mergerDate)}</td>
-            </tr>
-            <tr>
-              <th>Created at</th>
-              <td>{timeTag(spac.createdAt)}</td>
+              <th>Email</th>
+              <td>{user.email}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <nav className="rw-button-group">
         <Link
-          to={routes.editSpac({ id: spac.id })}
+          to={routes.editUser({ id: user.id })}
           className="rw-button rw-button-blue"
         >
           Edit
@@ -97,7 +77,7 @@ const Spac = ({ spac }) => {
         <a
           href="#"
           className="rw-button rw-button-red"
-          onClick={() => onDeleteClick(spac.id)}
+          onClick={() => onDeleteClick(user.id)}
         >
           Delete
         </a>
@@ -106,4 +86,4 @@ const Spac = ({ spac }) => {
   )
 }
 
-export default Spac
+export default User

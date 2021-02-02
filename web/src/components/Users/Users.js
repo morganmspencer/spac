@@ -1,11 +1,11 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 
-import { QUERY } from 'src/components/SpacsCell'
+import { QUERY } from 'src/components/UsersCell'
 
-const DELETE_SPAC_MUTATION = gql`
-  mutation DeleteSpacMutation($id: String!) {
-    deleteSpac(id: $id) {
+const DELETE_USER_MUTATION = gql`
+  mutation DeleteUserMutation($id: String!) {
+    deleteUser(id: $id) {
       id
     }
   }
@@ -37,11 +37,11 @@ const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
-const SpacsList = ({ spacs }) => {
+const UsersList = ({ users }) => {
   const { addMessage } = useFlash()
-  const [deleteSpac] = useMutation(DELETE_SPAC_MUTATION, {
+  const [deleteUser] = useMutation(DELETE_USER_MUTATION, {
     onCompleted: () => {
-      addMessage('Spac deleted.', { classes: 'rw-flash-success' })
+      addMessage('User deleted.', { classes: 'rw-flash-success' })
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
@@ -51,8 +51,8 @@ const SpacsList = ({ spacs }) => {
   })
 
   const onDeleteClick = (id) => {
-    if (confirm('Are you sure you want to delete spac ' + id + '?')) {
-      deleteSpac({ variables: { id } })
+    if (confirm('Are you sure you want to delete user ' + id + '?')) {
+      deleteUser({ variables: { id } })
     }
   }
 
@@ -62,46 +62,36 @@ const SpacsList = ({ spacs }) => {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Symbol</th>
-            <th>Ipo symbol</th>
-            <th>Ipo date</th>
-            <th>Ipo price</th>
-            <th>Merger date</th>
-            <th>Created at</th>
+            <th>Email</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
-          {spacs.map((spac) => (
-            <tr key={spac.id}>
-              <td>{truncate(spac.id)}</td>
-              <td>{truncate(spac.symbol)}</td>
-              <td>{truncate(spac.ipoSymbol)}</td>
-              <td>{timeTag(spac.ipoDate)}</td>
-              <td>{truncate(spac.ipoPrice)}</td>
-              <td>{timeTag(spac.mergerDate)}</td>
-              <td>{timeTag(spac.createdAt)}</td>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{truncate(user.id)}</td>
+              <td>{truncate(user.email)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link
-                    to={routes.spac({ id: spac.id })}
-                    title={'Show spac ' + spac.id + ' detail'}
+                    to={routes.user({ id: user.id })}
+                    title={'Show user ' + user.id + ' detail'}
                     className="rw-button rw-button-small"
                   >
                     Show
                   </Link>
                   <Link
-                    to={routes.editSpac({ id: spac.id })}
-                    title={'Edit spac ' + spac.id}
+                    to={routes.editUser({ id: user.id })}
+                    title={'Edit user ' + user.id}
                     className="rw-button rw-button-small rw-button-blue"
                   >
                     Edit
                   </Link>
                   <a
                     href="#"
-                    title={'Delete spac ' + spac.id}
+                    title={'Delete user ' + user.id}
                     className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(spac.id)}
+                    onClick={() => onDeleteClick(user.id)}
                   >
                     Delete
                   </a>
@@ -115,4 +105,4 @@ const SpacsList = ({ spacs }) => {
   )
 }
 
-export default SpacsList
+export default UsersList

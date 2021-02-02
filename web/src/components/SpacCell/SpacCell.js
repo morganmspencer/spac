@@ -9,6 +9,7 @@ export const QUERY = gql`
       ipoDate
       ipoPrice
       mergerDate
+      createdAt
     }
   }
 `

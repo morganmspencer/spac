@@ -3,8 +3,8 @@ import { Link, routes } from '@redwoodjs/router'
 import Spacs from 'src/components/Spacs'
 
 export const QUERY = gql`
-  query SPACS {
-    spacs {
+  query GET_FAVORITES($id: String!) {
+    favorites: favorites(id: $id) {
       id
       symbol
       ipoSymbol
@@ -19,16 +19,9 @@ export const QUERY = gql`
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => {
-  return (
-    <div className="rw-text-center">
-      {'No spacs yet. '}
-      <Link to={routes.newSpac()} className="rw-link">
-        {'Create one?'}
-      </Link>
-    </div>
-  )
+  return <div>No favorites yet.</div>
 }
 
-export const Success = ({ spacs }) => {
-  return <Spacs spacs={spacs} />
+export const Success = ({ favorites }) => {
+  return <Spacs spacs={favorites} />
 }

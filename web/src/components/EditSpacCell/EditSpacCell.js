@@ -11,6 +11,7 @@ export const QUERY = gql`
       ipoDate
       ipoPrice
       mergerDate
+      createdAt
     }
   }
 `
@@ -23,6 +24,7 @@ const UPDATE_SPAC_MUTATION = gql`
       ipoDate
       ipoPrice
       mergerDate
+      createdAt
     }
   }
 `
