@@ -9,9 +9,7 @@ const Listing = (props) => {
   const spacs = props.spacs
   return (
     <>
-      <div className="overflow-y-auto" style={{maxHeight: '25vh'}}>
-
-      </div>
+      <div className="overflow-y-auto" style={{ maxHeight: '25vh' }}></div>
     </>
   )
 }
@@ -38,55 +36,53 @@ const SpacListing = ({ spacs }) => {
   return (
     <div className="overflow-x-auto">
       <table className="listing-table w-full">
-          <thead className="sr-only">
-            <tr>
-              <th>Symbol</th>
-              <th>Today</th>
-              {isAuthenticated && (
-                <th>Favorite</th>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {spacs &&
-              (spacs.length > 0 ? (
-                spacs.map((spac) => (
-                  <tr key={spac.id}>
-                    <td className="">
-                      <Link
-                        to={routes.data({ symbol: spac.symbol })}
-                        className="flex items-center gap-1 p-2 -m-2"
-                      >
-                        <span className="font-bold">{spac.symbol}</span>
-                        {spac.symbol !== spac.ipoSymbol && (
-                          <span className="text-xs">
-                            {'(' + spac.ipoSymbol + ')'}
-                          </span>
-                        )}
-                      </Link>
-                    </td>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>IPO Date</th>
+            {isAuthenticated && <th>Favorite</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {spacs &&
+            (spacs.length > 0 ? (
+              spacs.map((spac) => (
+                <tr key={spac.id}>
+                  <td className="">
+                    <Link
+                      to={routes.data({ symbol: spac.symbol })}
+                      className="flex items-center gap-1 p-2 -m-2"
+                    >
+                      <span className="font-bold">{spac.symbol}</span>
+                      {spac.symbol !== spac.ipoSymbol && (
+                        <span className="text-xs">
+                          {'(' + spac.ipoSymbol + ')'}
+                        </span>
+                      )}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link
+                      to={routes.data({ symbol: spac.symbol })}
+                      className="flex items-center gap-1 p-2 -m-2"
+                    >
+                      {truncate(spac.ipoDate)}
+                    </Link>
+                  </td>
+                  {isAuthenticated && (
                     <td>
-                      <Link
-                        to={routes.data({ symbol: spac.symbol })}
-                        className="flex items-center gap-1 p-2 -m-2"
-                      >
-                        {truncate(spac.ipoSymbol)}
-                      </Link>
+                      <FavoriteCell spacId={spac.id} />
                     </td>
-                    {isAuthenticated && (
-                      <td>
-                        <FavoriteCell spacId={spac.id} />
-                      </td>
-                    )}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={isAuthenticated ? 3 : 2}>No SPACS found</td>
+                  )}
                 </tr>
-              ))}
-          </tbody>
-        </table>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={isAuthenticated ? 3 : 2}>No SPACS found</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -50,6 +50,10 @@ h6,
 
 @import "tailwindcss/components";
 
+.news-item:last-of-type {
+  @apply border-none;
+}
+
 .listing-table tr {
   @apply border-solid border-b border-gray-300;
 }

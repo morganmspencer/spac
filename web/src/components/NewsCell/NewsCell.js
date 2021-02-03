@@ -6,9 +6,9 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div className="text-center">Loading...</div>
 
-export const Empty = () => <div>No news to display</div>
+export const Empty = () => <div className="text-center">No news to display</div>
 
 export const Failure = ({ error }) => {
   console.log(error.message)

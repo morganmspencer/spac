@@ -15,13 +15,5 @@ var monthNames = [
 
 export function prettyDate(date) {
   var d = new Date(date)
-  return (
-    monthNames[d.getMonth()] +
-    ' ' +
-    d.getDay() +
-    ', ' +
-    d.getFullYear() +
-    ', ' +
-    d.toTimeString()
-  )
+  return date
 }

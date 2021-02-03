@@ -7,9 +7,8 @@ const HomePage = () => {
   return (
     <MainLayout>
       <DataSection>
-        <div>
-          <SpacListingCell/>
-        </div>
+        <h1 className="sticky mb-4">SPACs</h1>
+        <SpacListingCell />
       </DataSection>
       <section className="max-w-2xl mx-auto">
         <AllNewsCell />
