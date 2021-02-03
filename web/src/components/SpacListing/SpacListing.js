@@ -3,51 +3,39 @@ import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
 import FavoriteCell from 'src/components/FavoriteToggleCell'
 import { truncate, timeTag } from 'src/utils/forms'
+import useSortableData from 'src/utils/useSortableData'
 import { RiStarLine } from 'react-icons/ri'
 
-const Listing = (props) => {
-  const spacs = props.spacs
-  return (
-    <>
-      <div className="overflow-y-auto" style={{ maxHeight: '25vh' }}></div>
-    </>
-  )
-}
-
-const SpacListing = ({ spacs }) => {
+const SpacListing = (props) => {
+  const { spacs } = props
   const { isAuthenticated } = useAuth()
-
-  const [listingHeights, setListingHeights] = useState()
-
-  // var allSpacs = spacs,
-  //   currentSpacs = [],
-  //   mergedSpacs = [],
-  //   newSpacs = [],
-  //   upcomingSpacs = []
-
-  // spacs.forEach((spac) => {
-  //   if (spac.symbol === spac.ipoSymbol) {
-  //     currentSpacs.push(spac)
-  //   } else {
-  //     mergedSpacs.push(spac)
-  //   }
-  // })
+  console.log(spacs)
+  const { items, requestSort } = useSortableData(spacs)
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto h-full" style={{maxHeight: '55vh'}}>
       <table className="listing-table w-full">
         <thead>
           <tr>
-            <th>Symbol</th>
-            <th>IPO Date</th>
-            {isAuthenticated && <th>Favorite</th>}
+            {isAuthenticated && <th style={{width: '30px'}}><span className="sr-only">Favorite</span></th>}
+            <th>
+              <button onClick={() => requestSort('symbol')}>Symbol</button>
+            </th>
+            <th>
+              <button onClick={() => requestSort('ipoDate')}>IPO Date</button>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {spacs &&
-            (spacs.length > 0 ? (
-              spacs.map((spac) => (
+          {items &&
+            (items.length > 0 ? (
+              items.map((spac) => (
                 <tr key={spac.id}>
+                  {isAuthenticated && (
+                    <td style={{width: '30px'}}>
+                      <FavoriteCell spacId={spac.id} />
+                    </td>
+                  )}
                   <td className="">
                     <Link
                       to={routes.data({ symbol: spac.symbol })}
@@ -66,14 +54,9 @@ const SpacListing = ({ spacs }) => {
                       to={routes.data({ symbol: spac.symbol })}
                       className="flex items-center gap-1 p-2 -m-2"
                     >
-                      {truncate(spac.ipoDate)}
+                      {timeTag(spac.ipoDate, true)}
                     </Link>
                   </td>
-                  {isAuthenticated && (
-                    <td>
-                      <FavoriteCell spacId={spac.id} />
-                    </td>
-                  )}
                 </tr>
               ))
             ) : (

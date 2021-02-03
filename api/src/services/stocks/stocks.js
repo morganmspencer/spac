@@ -12,8 +12,8 @@ function fmpApi(request) {
 
 export const stockData = async ({ symbol }) => {
   var spacReturn = null,
-    stock = null,
-    originalStock = null
+      stock = null,
+      originalStock = null
 
   // Check for SPAC in DB
   var spacReturn = await spac({ symbol: symbol })

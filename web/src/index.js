@@ -6,6 +6,7 @@ import { RedwoodProvider, FatalErrorBoundary } from '@redwoodjs/web'
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 
 import Routes from 'src/Routes'
+import { Helmet } from 'react-helmet'
 
 import './scaffold.css'
 import './index.css'
@@ -19,6 +20,7 @@ ReactDOM.render(
   <FatalErrorBoundary page={FatalErrorPage}>
     <AuthProvider client={supabaseClient} type="supabase">
       <RedwoodProvider>
+        <Helmet titleTemplate="%s | Site Title" defaultTitle="Site Title" />
         <Routes />
       </RedwoodProvider>
     </AuthProvider>

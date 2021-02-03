@@ -1,41 +1,30 @@
-import { prettyDate } from 'src/utils/dates'
+import {newsTruncate} from 'src/utils/forms'
 
 export const NewsListItem = (props) => {
   return (
     <article className="news-item mb-8 pb-8 border-solid border-b">
-      {!props.loader ? (
-        <a
-          href={props.url}
-          target="_blank"
-          rel="noreferrer"
-          className="flex flex-col gap-4 items-start md:flex-row"
-        >
+      <a
+        href={props.url}
+        target="_blank"
+        rel="noreferrer"
+        className="flex flex-col gap-4 items-start md:flex-row"
+      >
+        {props.image &&
           <img
             src={props.image}
             alt={props.title}
             className="mx-auto sm:max-w-lg md:max-w-xs"
           />
-          <div className="flex-1 mx-auto sm:max-w-lg md:max-w-full">
-            <span className="text-xs mb-1">
-              {prettyDate(props.publishedDate)}
-            </span>
-            <h3 className="mb-2">{props.title}</h3>
-            <p className="text-sm">{props.text}</p>
-          </div>
-        </a>
-      ) : (
-        <div className="flex gap-4 items-start">
-          <div
-            className="max-w-xs bg-gray-300 animate-pulse h-0 w-full overflow-hidden"
-            style={{ paddingBottom: '56.25%' }}
-          />
-          <div>
-            <div className="text-xs mb-1 w-full bg-gray-300 animate-pulse p-2" />
-            <div className="mb-2" />
-            <div className="text-sm" />
-          </div>
+        }
+        <div className="flex-1 mx-auto sm:max-w-lg md:max-w-full">
+          <p className="text-xs mb-1 flex flex-wrap gap-2">
+            <span className="font-bold">{props.site}</span>
+            <time>{new Date(props.publishedDate).toLocaleString()}</time>
+          </p>
+          <h3 className="mb-2">{props.title}</h3>
+          <p className="text-sm">{newsTruncate(props.text)}</p>
         </div>
-      )}
+      </a>
     </article>
   )
 }
@@ -52,6 +41,7 @@ const NewsList = ({ news }) => {
           image={item.image}
           text={item.text}
           publishedDate={item.publishedDate}
+          site={item.site}
         />
       ))}
     </div>

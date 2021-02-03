@@ -54,6 +54,18 @@ h6,
   @apply border-none;
 }
 
+.listing-table {
+  @apply relative;
+}
+
+.listing-table th {
+  @apply sticky top-0 z-10 p-2 bg-gray-200;
+}
+
+.listing-table th button {
+  @apply w-full font-bold text-left p-2 -m-2;
+}
+
 .listing-table tr {
   @apply border-solid border-b border-gray-300;
 }

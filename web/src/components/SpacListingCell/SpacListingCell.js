@@ -6,6 +6,7 @@ export const QUERY = gql`
       id
       symbol
       ipoSymbol
+      ipoDate
       ipoPrice
       mergerDate
     }

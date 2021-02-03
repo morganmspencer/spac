@@ -1,4 +1,5 @@
 import { useParams, navigate, routes } from '@redwoodjs/router'
+import { Helmet } from 'react-helmet'
 import Data from 'src/components/Data'
 import NewsCell from 'src/components/NewsCell'
 
@@ -27,10 +28,15 @@ export const Success = ({ spac }) => {
   return (
     <>
       {console.log(spac)}
-      {symbol !== spac.stock.symbol ? (
+      {symbol !== spac?.stock?.symbol ? (
         navigate(routes.data({ symbol: spac.stock.symbol }))
       ) : (
         <>
+          <Helmet>
+            <title>
+              { spac.stock?.companyName ? spac.stock.companyName + ' (' + spac.stock.symbol + ')' : spac.stock.symbol }
+            </title>
+          </Helmet>
           <Data spac={spac} />
           <NewsCell symbol={spac.symbol} />
         </>

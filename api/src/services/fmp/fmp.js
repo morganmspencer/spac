@@ -2,9 +2,18 @@ import fetch from 'node-fetch'
 import { db } from 'src/lib/db'
 import { spacs } from 'src/services/spacs'
 
+function fmpApi(request) {
+  const keySep = request.includes('?') ? '&' : '?'
+  return (
+    'https://financialmodelingprep.com/api/v3' +
+    request +
+    `${keySep}apikey=${process.env.FMP_API}`
+  )
+}
+
 export const fmpStock = async ({ symbol }) => {
   const response = await fetch(
-    `https://financialmodelingprep.com/api/v3/profile/${symbol}?apikey=${process.env.FMP_API}`
+    fmpApi(`/profile/${symbol}`)
   )
 
   const json = await response.json()
@@ -15,7 +24,7 @@ export const fmpStock = async ({ symbol }) => {
 
   if (json?.length && json[0]?.ipoDate) {
     const ipos = await fetch(
-      `https://financialmodelingprep.com/api/v3/ipo_calendar?from=${json[0].ipoDate}&to=${json[0].ipoDate}&apikey=${process.env.FMP_API}`
+      fmpApi(`/ipo_calendar?from=${json[0].ipoDate}&to=${json[0].ipoDate}`)
     )
 
     const ipoJson = await ipos.json()
@@ -42,7 +51,7 @@ export const fmpStock = async ({ symbol }) => {
 
 export const spacNews = async ({ symbol, limit = 10 }) => {
   const response = await fetch(
-    `https://financialmodelingprep.com/api/v3/stock_news?tickers=${symbol}&limit=${limit}&apikey=${process.env.FMP_API}`
+    fmpApi(`/stock_news?tickers=${symbol}&limit=${limit}`)
   )
 
   const json = await response.json()
@@ -62,7 +71,7 @@ export const allSpacNews = async () => {
   const finalSymbols = symbols.slice(0, -1)
 
   const news = await fetch(
-    `https://financialmodelingprep.com/api/v3/stock_news?tickers=${finalSymbols}&limit=20&apikey=${process.env.FMP_API}`
+    fmpApi(`/stock_news?tickers=${finalSymbols}&limit=20`)
   )
 
   const json = await news.json()
@@ -77,7 +86,7 @@ export const getFmpSpacs = async () => {
   // Get SPACS from FMP
   const industry = 'Shell Companies'
   const allSpacs = await fetch(
-    `https://financialmodelingprep.com/api/v3/stock-screener?industry=${industry}&limit=5000&apikey=${process.env.FMP_API}`
+    fmpApi(`/stock-screener?industry=${industry}&limit=5000`)
   )
   const json = await allSpacs.json()
 
@@ -103,8 +112,6 @@ export const getFmpSpacs = async () => {
   // Filter out ones already in DB
   var spacsToAdd = fmpSpacs.filter((val) => !dbSpacs.includes(val))
 
-  // console.log(spacsToAdd)
-
   if (spacsToAdd.length) {
     var symbols = ''
 
@@ -115,7 +122,7 @@ export const getFmpSpacs = async () => {
     const finalSymbols = symbols.slice(0, -1)
 
     const allSpacs = await fetch(
-      `https://financialmodelingprep.com/api/v3/profile/${finalSymbols}?apikey=${process.env.FMP_API}`
+      fmpApi(`/profile/${finalSymbols}`)
     )
 
     const json = await allSpacs.json()
@@ -126,16 +133,14 @@ export const getFmpSpacs = async () => {
           data: {
             symbol: stock.symbol,
             ipoSymbol: stock.symbol,
-            ipoDate: stock.ipoSymbol,
+            ipoDate: stock.ipoDate ? new Date(stock.ipoDate) : null,
           },
         })
       })
 
-      return 'Done!'
+      return 'New SPACs added!'
     }
   } else {
-    return 'No new items'
+    return 'No new SPACs'
   }
-
-  return json
 }

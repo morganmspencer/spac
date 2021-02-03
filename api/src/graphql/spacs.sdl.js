@@ -28,7 +28,8 @@ export const schema = gql`
     symbol: String
     ipoSymbol: String
     ipoDate: DateTime
-rgerDate: DateTime
+    ipoPrice: String
+    mergerDate: DateTime
   }
 
   type Mutation {

@@ -35,10 +35,11 @@ const LoginButton = (props) => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel={!signupForm ? 'Log in' : 'Sign up'}
-        className="p-6"
-        overlayClassName="w-full h-full bg-white bg-opacity-90 flex items-center justify-center absolute top-0 left-0"
+        className="p-6 bg-gray-100 rounded-md w-full max-w-sm border-solid border border-gray-400"
+        overlayClassName="w-full h-full bg-white bg-opacity-95 flex items-center justify-center absolute top-0 left-0"
       >
         <form>
+          <h2 className="mb-4 text-center">{!signupForm ? 'Log in' : 'Sign up'}</h2>
           <input
             type="email"
             placeholder="email address"

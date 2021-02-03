@@ -1,10 +1,10 @@
-const DataSection = ({ children }) => {
+const DataSection = (props) => {
   return (
     <section
-      className="mb-12 -mt-12 -mx-wrap px-wrap py-12 bg-gray-100 shadow-inset overflow-y-auto"
-      style={{ maxHeight: '60vh' }}
+      className={`${props.className ? props.className : ''} mb-12 -mt-12 -mx-wrap px-wrap py-12 bg-gray-100 overflow-hidden`}
+      style={{ minHeight: '50vh' }}
     >
-      {children}
+      {props.children}
     </section>
   )
 }
